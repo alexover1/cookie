@@ -2,4 +2,16 @@
 [Oo]bj/
 [Bb]in/
 [Bb]uild/
+
+# Visual Studio
+vs/
 *.log
+*.sln
+*.suo
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

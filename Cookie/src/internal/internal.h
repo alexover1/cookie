@@ -34,10 +34,6 @@ namespace Cookie
 				Log::error("Failed to initialize glad");
 			}
 
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glClearColor(0, 0, 0, 1);
-
 			Log::info("OpenGL v%s", glGetString(GL_VERSION));
 			Log::info("Renderer: %s", glGetString(GL_RENDERER));
 		}

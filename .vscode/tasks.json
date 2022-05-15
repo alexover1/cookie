@@ -10,10 +10,10 @@
     },
     {
       "type": "process",
-      "label": "VSBuildDebug",
+      "label": "(Win64) VSBuildDebug",
       "command": "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MsBuild.exe",
       "args": [
-        "build/MyWorkspace.sln",
+        "Cookie.sln",
         "/p:Configuration=Debug;Platform=Win64",
         "/fl",
         "/flp:LogFile=build/msbuild.log"
@@ -23,6 +23,48 @@
         "kind": "build",
         "isDefault": true
       },
+      "dependsOn": ["Premake5Build"]
+    },
+    {
+      "type": "process",
+      "label": "(Win32) VSBuildDebug",
+      "command": "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MsBuild.exe",
+      "args": [
+        "Cookie.sln",
+        "/p:Configuration=Debug;Platform=Win32",
+        "/fl",
+        "/flp:LogFile=build/msbuild.log"
+      ],
+      "problemMatcher": ["$msCompile"],
+      "group": "build",
+      "dependsOn": ["Premake5Build"]
+    },
+    {
+      "type": "process",
+      "label": "(Win64) VSBuildRelease",
+      "command": "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MsBuild.exe",
+      "args": [
+        "Cookie.sln",
+        "/p:Configuration=Release;Platform=Win64",
+        "/fl",
+        "/flp:LogFile=build/msbuild.log"
+      ],
+      "problemMatcher": ["$msCompile"],
+      "group": "build",
+      "dependsOn": ["Premake5Build"]
+    },
+    {
+      "type": "process",
+      "label": "(Win32) VSBuildRelease",
+      "command": "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MsBuild.exe",
+      "args": [
+        "Cookie.sln",
+        "/p:Configuration=Release;Platform=Win32",
+        "/fl",
+        "/flp:LogFile=build/msbuild.log"
+      ],
+      "problemMatcher": ["$msCompile"],
+      "group": "build",
       "dependsOn": ["Premake5Build"]
     }
   ]
