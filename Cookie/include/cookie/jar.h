@@ -1,5 +1,6 @@
 #pragma once
 #include <cookie/common.h>
+#include <cookie/renderer/graphicscontext.h>
 
 namespace Cookie
 {
@@ -7,6 +8,7 @@ namespace Cookie
 	{
 	private:
 		bool m_alive = true;
+		GraphicsContext* m_context;
 
 	public:
 		Jar(const char* name = "My Jar", int width = 1280, int height = 720, int options = COOKIE_DEFAULT_OPTS_OPENGL);

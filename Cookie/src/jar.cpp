@@ -1,5 +1,6 @@
 #include <cookie/jar.h>
 #include <cookie/common.h>
+#include "platform/opengl/opengl_context.h"
 #include "internal/internal.h"
 
 using namespace Cookie;
@@ -7,7 +8,6 @@ using namespace Cookie;
 namespace
 { 
 	SDL_Window* window;
-	void* ctx;
 }
 
 Jar::Jar(const char* name, int width, int height, int options)
@@ -38,10 +38,21 @@ Jar::Jar(const char* name, int width, int height, int options)
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
 	COOKIE_ASSERT(window != nullptr, "Failed to create window");
 
-	// Init OpenGL
-	ctx = Internal::gl_context_create(window);
-	Internal::gl_context_make_current(window, ctx);
-	Internal::gl_init();
+	// OpenGL context
+	if (options & COOKIE_OPT_OPENGL)
+	{
+		m_context = new OpenGLContext(window);
+	}
+	
+	// D3D11 context
+	if (options & COOKIE_OPT_D3D11)
+	{
+		// TODO: Implement D3D11 context
+	}
+
+	// Initialize context
+	COOKIE_ASSERT(m_context != nullptr, "Did not create context");
+	m_context->init();
 }
 
 Jar::~Jar()
@@ -50,7 +61,9 @@ Jar::~Jar()
 		SDL_DestroyWindow(window);
 	window = nullptr;
 
-	Internal::gl_context_destroy(ctx);
+	if (m_context != nullptr)
+		delete m_context;
+	m_context = nullptr;
 
 	SDL_Quit();
 }
@@ -70,7 +83,7 @@ void Jar::events()
 
 void Jar::render()
 {
-	SDL_GL_SwapWindow(window);
+	m_context->swap_buffers();
 }
 
 void Jar::imgui_render()
