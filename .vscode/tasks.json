@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Premake5Build",
+      "command": "premake5",
+      "args": ["vs2022"],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "type": "process",
+      "label": "VSBuildDebug",
+      "command": "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MsBuild.exe",
+      "args": [
+        "build/MyWorkspace.sln",
+        "/p:Configuration=Debug;Platform=Win64",
+        "/fl",
+        "/flp:LogFile=build/msbuild.log"
+      ],
+      "problemMatcher": ["$msCompile"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["Premake5Build"]
+    }
+  ]
+}

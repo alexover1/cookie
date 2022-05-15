@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "(Win64) Run",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug-windows-x86_64/Sandbox/Sandbox.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "(Win32) Run",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug-windows-x86/Sandbox/Sandbox.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "internalConsole"
+    }
+  ]
+}
