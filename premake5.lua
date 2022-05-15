@@ -11,8 +11,7 @@ IncludeDir["Glad"] = "%{wks.location}/libs/glad/include"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
-	include "libs/sdl2/SDL2.lua"
-	include "libs/sdl2/SDL2main.lua"
+	include "libs/sdl2"
 	include "libs/glad"
 group ""
 
