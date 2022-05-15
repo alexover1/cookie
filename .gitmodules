@@ -1,3 +1,0 @@
-[submodule "libs/sdl2"]
-	path = libs/sdl2
-	url = https://github.com/SpookyScaryDev/SDL2.git
