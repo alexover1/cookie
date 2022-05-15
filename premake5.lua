@@ -116,6 +116,8 @@ project "Sandbox"
 		staticruntime "On"
 		systemversion "latest"
 
+		links "SDL2main"
+
 		postbuildcommands
 		{
 			("{COPY} ../../bin/" .. outputdir .. "/Cookie/Cookie.dll ../../bin/" .. outputdir .. "/%{prj.name}"),

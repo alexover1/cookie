@@ -1,20 +1,16 @@
-#define SDL_MAIN_HANDLED
 #include <cookie.h>
-#include <SDL.h>
-#include <stdio.h>
 
 using namespace Cookie;
 
-int main(int argc, char **argv)
+int main(int argc, char* argv[])
 {
-	SDL_SetMainReady();
-	App app;
+	Jar jar;
 
-	while (app.running())
+	while (jar.alive())
 	{
-		app.on_update();
+		jar.events();
 
-		app.on_render();
+		jar.render();
 	}
 
 	return 0;

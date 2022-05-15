@@ -1,4 +1,4 @@
-#include <cookie/app.h>
+#include <cookie/jar.h>
 #include <cookie/common.h>
 #include "internal/internal.h"
 
@@ -10,11 +10,12 @@ namespace
 	void* ctx;
 }
 
-App::App()
+Jar::Jar(const char* name, int width, int height, int options)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		Log::error("Failed to initialize SDL");
+		kill();
 		return;
 	}
 
@@ -23,25 +24,22 @@ App::App()
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	// window flags
-	// u32 flags = 0;
-	int flags = SDL_WINDOW_OPENGL;
-	// if (options & FLUF_APP_OPTIONS_OPENGL_CONTEXT) flags |= SDL_WINDOW_OPENGL;
-	// if (options & FLUF_APP_OPTIONS_FULLSCREEN) flags |= SDL_WINDOW_FULLSCREEN;
-	// if (options & FLUF_APP_OPTIONS_RESIZABLE) flags |= SDL_WINDOW_RESIZABLE;
-	// if (options & FLUF_APP_OPTIONS_HIDDEN) flags |= (SDL_WINDOW_HIDDEN | SDL_WINDOW_MINIMIZED);
+	int flags = 0;
+	if (options & COOKIE_OPT_OPENGL) flags |= SDL_WINDOW_OPENGL;
+	if (options & COOKIE_OPT_FULLSCREEN) flags |= SDL_WINDOW_FULLSCREEN;
+	if (options & COOKIE_OPT_RESIZEABLE) flags |= SDL_WINDOW_RESIZABLE;
+	if (options & COOKIE_OPT_HIDDEN) flags |= (SDL_WINDOW_HIDDEN | SDL_WINDOW_MINIMIZED);
 
-	window = SDL_CreateWindow("Cat", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, flags);
+	window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
 	COOKIE_ASSERT(window != nullptr, "Failed to create window");
 
 	// Init OpenGL
 	ctx = Internal::gl_context_create(window);
 	Internal::gl_context_make_current(window, ctx);
 	Internal::gl_init();
-
-	m_running = true;
 }
 
-App::~App()
+Jar::~Jar()
 {
 	if (window != nullptr)
 		SDL_DestroyWindow(window);
@@ -52,14 +50,14 @@ App::~App()
 	SDL_Quit();
 }
 
-void App::on_update()
+void Jar::events()
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_QUIT)
 		{
-			stop_running();
+			kill();
 			break;
 		}
 	}
@@ -67,12 +65,12 @@ void App::on_update()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void App::on_render()
+void Jar::render()
 {
 	SDL_GL_SwapWindow(window);
 }
 
-void App::on_imgui_render()
+void Jar::imgui_render()
 {
 	
 }

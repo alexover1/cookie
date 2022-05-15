@@ -6,7 +6,8 @@
 #define COOKIE_OPT_FULLSCREEN 	(1 << 1)
 #define COOKIE_OPT_RESIZEABLE 	(1 << 2)
 #define COOKIE_OPT_CENTERED 	(1 << 3)
-#define COOKIE_OPT_IMGUI 		(1 << 4)
+#define COOKIE_OPT_HIDDEN  		(1 << 4)
+#define COOKIE_OPT_IMGUI 		(1 << 5)
 
 // Asserts
 #if defined(DEBUG) || defined(_DEBUG)
