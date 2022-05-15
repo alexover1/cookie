@@ -17,5 +17,8 @@ int main()
     
     jar.render();
   }
+  
+  jar.destroy();
+  return 0;
 }
 ```
