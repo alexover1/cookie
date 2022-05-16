@@ -1,47 +1,34 @@
 #pragma once
-#include <cookie/common.h>
-#include <glad/glad.h>
+#include <cookie/renderer/buffer.h>
 
 namespace Cookie
 {
-	/////////////////////////////////////////////////////////////////////////////
-	// VertexBuffer /////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
-
-	class VertexBuffer
+	class OpenGLVertexBuffer : public VertexBuffer 
 	{
-	private:
-		uint m_renderer_id;
-	
 	public:
-		VertexBuffer(const void* data, uint size);
-		~VertexBuffer();
+		OpenGLVertexBuffer(float* vertices, u32 size);
+		~OpenGLVertexBuffer();
 
 		void bind() const;
 		void unbind() const;
+
+	private:
+		u32 m_renderer_id;
 	};
 
-	/////////////////////////////////////////////////////////////////////////////
-	// IndexBuffer /////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
-
-	class IndexBuffer
+	class OpenGLIndexBuffer : public IndexBuffer 
 	{
+	public:
+		OpenGLIndexBuffer(u32* indices, u32 count);
+		~OpenGLIndexBuffer();
+
+		virtual uint count() const { return m_count; }
+
+		void bind() const;
+		void unbind() const;
+
 	private:
-		uint m_renderer_id;
+		u32 m_renderer_id;
 		uint m_count;
-
-	public:
-		IndexBuffer(const ushort* data, uint count);
-		~IndexBuffer();
-
-		void bind() const;
-		void unbind() const;
-
-		inline uint count() const { return m_count; }
 	};
-
-	/////////////////////////////////////////////////////////////////////////////
-	// Framebuffer /////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
 }

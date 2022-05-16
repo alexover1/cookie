@@ -4,9 +4,12 @@
 [Bb]uild/
 
 # Visual Studio
-vs/
+.vs/
 **.log
 **.sln
 **.vcxproj
 **.user
 **.filters
+
+# VSCode
+.vscode

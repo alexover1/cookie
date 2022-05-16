@@ -4,7 +4,7 @@
 
 namespace Cookie
 {
-	class COOKIE_EXPORT Jar 
+	class COOKIE_API Jar 
 	{
 	private:
 		bool m_alive = true;

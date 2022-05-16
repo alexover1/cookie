@@ -1,7 +1,8 @@
 #pragma once
 
-#define COOKIE_EXPORT __declspec(dllexport)
+#define COOKIE_API __declspec(dllexport)
 
+// Options
 #define COOKIE_OPT_OPENGL 		(1 << 0)
 #define COOKIE_OPT_D3D11		(1 << 1)
 #define COOKIE_OPT_FULLSCREEN 	(1 << 2)
@@ -34,9 +35,9 @@ namespace Cookie
 
 		constexpr int max_length = 1024;
 
-		COOKIE_EXPORT void info(const char* message, ...);
-		COOKIE_EXPORT void warn(const char* message, ...);
-		COOKIE_EXPORT void error(const char* message, ...);
+		COOKIE_API void info(const char* message, ...);
+		COOKIE_API void warn(const char* message, ...);
+		COOKIE_API void error(const char* message, ...);
 	}
 }
 
@@ -64,9 +65,16 @@ namespace Cookie
 
 // Functional
 #include <functional>
-namespace fluf
+namespace Cookie
 {
 	template<class Ret, class...Args> using Func = std::function<Ret(Args...)>;
+}
+
+// Initializer list, required for Vector/StackVector
+#include <initializer_list>
+namespace Cookie
+{
+	template<typename T> using InitializerList = std::initializer_list<T>;
 }
 
 // Ref Counter, for Graphics & Input Resources
@@ -74,4 +82,9 @@ namespace fluf
 namespace Cookie
 {
 	template<typename T> using Ref = std::shared_ptr<T>;
+	template<typename T, typename ... Args>
+	constexpr Ref<T> create_ref(Args&& ... args)
+	{
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
 }

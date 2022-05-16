@@ -1,5 +1,9 @@
 #include <cookie/jar.h>
 #include <cookie/common.h>
+#include <cookie/renderer/renderer.h>
+#include <cookie/renderer/buffer.h>
+#include <cookie/renderer/vertexarray.h>
+
 #include "platform/opengl/opengl_context.h"
 #include "internal/internal.h"
 
@@ -42,12 +46,14 @@ Jar::Jar(const char* name, int width, int height, int options)
 	if (options & COOKIE_OPT_OPENGL)
 	{
 		m_context = new OpenGLContext(window);
+		Renderer::set_api(RendererAPI::OpenGL);
 	}
 	
 	// D3D11 context
 	if (options & COOKIE_OPT_D3D11)
 	{
 		// TODO: Implement D3D11 context
+		Renderer::set_api(RendererAPI::Direct3D);
 	}
 
 	// Initialize context
@@ -79,6 +85,10 @@ void Jar::events()
 			break;
 		}
 	}
+
+	// TODO: REMOVE
+	glClearColor(0.2f, 0.3f, 0.8f, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Jar::render()

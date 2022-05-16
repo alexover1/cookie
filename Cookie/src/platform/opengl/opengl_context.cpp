@@ -20,20 +20,11 @@ void OpenGLContext::init()
 { 
 	// Create SDL GL Context
 	m_context = SDL_GL_CreateContext(m_window);
-	if (!m_context)
-	{
-		Log::info("Failed to create OpenGL context: %s", SDL_GetError());
-		return;
-	}
-	// COOKIE_ASSERT(m_context, "Failed to create OpenGL context: %s", SDL_GetError());
-
+	COOKIE_ASSERT(m_context, "Failed to create OpenGL context");
 	SDL_GL_MakeCurrent(m_window, m_context);
 
 	// Load Glad
-	if (!gladLoadGLLoader(SDL_GL_GetProcAddress))
-	{
-		Log::error("Failed to initialize glad");
-	}
+	COOKIE_ASSERT(gladLoadGLLoader(SDL_GL_GetProcAddress), "Failed to initialize Glad");
 
 	Log::info("OpenGL: %s", glGetString(GL_VERSION));
 	Log::info("Renderer: %s", glGetString(GL_RENDERER));
